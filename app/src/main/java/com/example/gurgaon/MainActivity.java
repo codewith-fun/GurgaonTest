@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity  {
             OnGPS();
         } else {
 
-            getLocation();
+            getLocation();//
         }
     }
 
