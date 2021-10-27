@@ -17,6 +17,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
@@ -51,9 +52,8 @@ public class MainActivity extends AppCompatActivity  {
     String latitude, longitude;
     TextView txtLat;
 
+    Handler mHandler;
 
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,18 +66,28 @@ public class MainActivity extends AppCompatActivity  {
         actionWithData();
         doStuff();
 
+        this.mHandler = new Handler();
+        this.mHandler.postDelayed(runnable,40000);
+
     }
+
+    private final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            doStuff();
+        }
+    };
 
     private void doStuff() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             OnGPS();
         } else {
+
             getLocation();
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void actionWithData() {
         progressDialog = ProgressDialog.show(MainActivity.this,"Loading....","Please wait",true);
         viewModel.getUAllInfo().observe(this,userModels -> {
@@ -88,7 +98,6 @@ public class MainActivity extends AppCompatActivity  {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void ObserveData(List<UserModel> data) {
 //        Log.d("TAG", "users: "+data.toString());
         button.setOnClickListener(view -> {
@@ -110,7 +119,7 @@ public class MainActivity extends AppCompatActivity  {
                             userModel.setName(userName);
                             prompt.setVisibility(View.GONE);
                             viewModel.insert(userModel);
-                            Log.d("TAG", "ObserveData: added "+data.stream().filter(userModel1 -> mobile.equals(user.getMob())));
+                            Log.d("TAG", "ObserveData: added ");
 
                         }
                     }
@@ -173,7 +182,7 @@ public class MainActivity extends AppCompatActivity  {
                 double longi = locationGPS.getLongitude();
                 latitude = String.valueOf(lat);
                 longitude = String.valueOf(longi);
-                showLocation.setText("Your Location: " + "\n" + "Latitude: " + latitude + "\n" + "Longitude: " + longitude);
+                txtLat.setText("Your Location: " + "\n" + "Latitude: " + latitude + "\n" + "Longitude: " + longitude);
             } else {
                 Toast.makeText(this, "Unable to find location.", Toast.LENGTH_SHORT).show();
             }
