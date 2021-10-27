@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void ObserveData(List<UserModel> data) {
-        Log.d("TAG", "users: "+data.toString());
+//        Log.d("TAG", "users: "+data.toString());
         button.setOnClickListener(view -> {
             UserModel userModel = new UserModel();
             String mobile,userName,mdata;
@@ -58,15 +58,30 @@ public class MainActivity extends AppCompatActivity {
             mdata = String.valueOf(data);
                 if (!mobile.contains(mdata)) {
                     for (UserModel user : data) {
-                        if (user.getMob().equals(name)) {
-                            return user;
+                        if (mobile.equals(user.getMob())) {
+                            Log.d("TAG", "ObserveData: ");
+                            prompt.setText("Already exist!");
+                            prompt.setVisibility(View.VISIBLE);
+                            Log.d("TAG", "ObserveData: Already");
+                            return;
+                        }else {
+                            userModel.setMob(Integer.parseInt(mobile));
+                            userModel.setName(userName);
+                            prompt.setVisibility(View.GONE);
+                            viewModel.insert(userModel);
+                            Log.d("TAG", "ObserveData: added ");
+
                         }
                     }
-                    userModel.setMob(Integer.parseInt(mobile));
-                    userModel.setName(userName);
-                    prompt.setVisibility(View.GONE);
-                    viewModel.insert(userModel);
-                    Log.d("TAG", "ObserveData: added ");
+//
+//                    if (userModel.equals(mobile)){
+//
+//
+//                    }else {
+//
+//
+//                    }
+
                 }else {
                     prompt.setText("Already exist!");
                     prompt.setVisibility(View.VISIBLE);
