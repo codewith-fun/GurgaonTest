@@ -11,18 +11,18 @@ public class UserModel {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "mob")
-    private int mob;
+    private String mob;
 
     @NonNull
     @ColumnInfo(name = "name")
     private String name;
 
 
-    public int getMob() {
+    public String getMob() {
         return mob;
     }
 
-    public void setMob(int mob) {
+    public void setMob(String mob) {
         this.mob = mob;
     }
 

@@ -42,6 +42,7 @@ public abstract class UserrInfoRoomDatabase extends RoomDatabase {
         }
     };
 
+
     private static class PopulateAsync extends AsyncTask<Void,Void,Void> {
         private final UserInfoDao dao;
 

@@ -19,6 +19,9 @@ public interface UserInfoDao {
     @Query("SELECT * from user_info ORDER BY name ASC")
     LiveData<List<UserModel>> getAllUser();
 
+    @Query("select * from user_info WHERE  mob")
+    LiveData<List<UserModel>> getMobile();
+
     @Query("DELETE from user_info")
     void deleteAll();
 

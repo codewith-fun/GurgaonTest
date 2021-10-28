@@ -30,6 +30,11 @@
         android:layout_height="wrap_content"/>
 
     <TextView
+        android:id="@+id/msg_promptAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
         android:id="@+id/msg_latlang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
